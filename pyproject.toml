@@ -1,0 +1,71 @@
+[project]
+name = "onboarding-orchestrator"
+version = "0.2.0"
+description = "Orquestador agéntico de onboarding digital bancario (PoC)"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+license = { text = "MIT" }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["data", ".venv"]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "F",    # pyflakes
+    "I",    # isort
+    "B",    # flake8-bugbear
+    "UP",   # pyupgrade
+    "SIM",  # flake8-simplify
+    "S",    # flake8-bandit (seguridad)
+    "N",    # pep8-naming
+    "C4",   # flake8-comprehensions
+    "DTZ",  # datetime timezone
+    "T20",  # flake8-print (sin prints en app/)
+    "RET",  # return-related
+    "RUF",  # ruff-specific
+]
+ignore = [
+    "E501",   # line too long (lo controla el formatter)
+    "S101",   # assert (permitido en tests)
+    "T201",   # permitimos prints en scripts
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["S", "T20"]
+"scripts/**/*.py" = ["T20"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+show_error_codes = true
+exclude = ["data/", ".venv/", "build/", "dist/"]
+
+[[tool.mypy.overrides]]
+module = ["chromadb.*", "sentence_transformers.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-ra --strict-markers --strict-config"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+asyncio_mode = "auto"
+filterwarnings = [
+    "error",
+    "ignore::DeprecationWarning:pydantic.*",
+    "ignore::DeprecationWarning:chromadb.*",
+]
+
+[tool.coverage.run]
+source = ["app"]
+omit = ["app/rag/embedder.py"]  # requiere modelo descargado
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+fail_under = 70

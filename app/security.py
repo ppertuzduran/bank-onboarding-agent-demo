@@ -28,24 +28,13 @@ class PIIRedactor(logging.Filter):
 
 
 class LoggingConfigurator:
-    """Configura el logger raíz con el filtro de PII una sola vez."""
-
-    _configured: bool = False
+    """Compat: delega en `app.audit.LoggingBootstrap` (JSON estructurado + redact)."""
 
     @classmethod
     def configure(cls) -> None:
-        if cls._configured:
-            return
-        handler = logging.StreamHandler()
-        handler.setFormatter(
-            logging.Formatter("%(asctime)s %(levelname)s %(name)s - %(message)s")
-        )
-        handler.addFilter(PIIRedactor())
-        root = logging.getLogger()
-        root.handlers.clear()
-        root.addHandler(handler)
-        root.setLevel(logging.INFO)
-        cls._configured = True
+        from app.audit import LoggingBootstrap
+
+        LoggingBootstrap.configure()
 
 
 class EncryptionService:
