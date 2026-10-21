@@ -1,0 +1,15 @@
+En el archivo pseduo-prd.txt se encuentra un una descripción funcional y tecnica sobre una implementación a realizar. Antes de comenzar con la implementación, se debe definir el alcance del proyecto, riesgos que podrian ocurrir, mitigaciones, y finalmente el stack tecnologico.
+
+Para este escenario se debe implementar como una prueba de concepto o demo, por lo que se pueden escoger capacidades reducidas para probar los componentes y logica. 
+
+En cuanto al stack tecnologico, se utilizará fastapi para el backend. Se puede incluir una pequeña interfaz para recibir los datos del cliente, no se especifica el formato por lo que se puede probar con datos sinteticos, en formato json por ejemplo.
+
+Se debe implementar un orquestador agentico, se puede orquestar por logica desde el backend para simplicidad del demo, definir las tools mediante scripts de python y llamarlas cuando se necesite. Utiliza para las funciones de las tools de los agentes librerias estandar de python.
+
+Se hará luego de las prubeas locales un despliegue en AWS, por lo que se debe crear un IAM user especifico. Sigue el principio de least privilege para mitigar prompt injections o cualquier leak de información confidencial.
+
+Uno de los agentes debe devolver información segun el perfil del cliente, por lo que los documentos deben estar no solo correctamente almacenados sino cifrados siguiendo los estandares de seguiridad. Se debe comprobar que embeder esta disponible en la cuenta de amazon para el embeding de los documentos, por ejemplo usando el modelo TITAN V2. Generar documentos sinteticos para el test seria el primer paso en esta etapa. Como son documentos bancarios, se espera que los parrafos sean cortos con instrucciones claras, no ambiguos. Por lo cual, se puede utilizar una estrategia de chunking que englobe cada seccion del documento con titulo o subtitulo. Para probar si la estrategia de chunking es correcta, se deben implementar pruebas con entre 10-20 preguntas fake, similares a lo que podria ocurrir en un escenario real, revisar el hit @k y comprobar si devuelve en el top k chunks realmente relevantes, hasta encontrar el numero optimo entre costo de tokens y calidad de respuesta. Por ser un demo es probable que una estrategia de rearanking no sea necesaria.
+
+El criterio a la hora de escoger demas componentes tecnologicos como librerias, frameworks o servicios lo tendré yo como ingeniero de inteligencia artificial, por lo anterior, implementa lo descrito en este prompt siguiendo el pseudo prd, pero a la hora de cualquier ambiguedad o toma decisión sobre como seguir o escoger alguna tecnologia, consultamelo antes de continuar.
+
+Tengo una cuenta de aws recien creada por lo que se deben realizar pruebas de conexion por terminal antes de proceder con el paso del despliegue, pero el objetivo primero es realizar una implementación local y luego desplegar si queda tiempo, en la nube.

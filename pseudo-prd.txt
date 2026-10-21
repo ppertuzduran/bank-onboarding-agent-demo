@@ -1,0 +1,21 @@
+Contexto:
+El Banco necesita un agente orquestador que coordine múltiples agentes especializados durante el proceso de onboarding digital de un nuevo cliente. Un agente verifica identidad, otro consulta listas de riesgo, otro prepara la documentación en base a las políticas de dicho banco y otro genera la respuesta al cliente. El orquestador debe controlar que herramientas puede usar cada agente, manejar el estado entre pasos y mitigar si hay incertidumbre.
+
+
+Requisitos Funcionales: El agente debe:
+Recibir una solicitud de onboarding con datos del prospecto cliente
+Determinar bajo las políticas si el cliente es apto o no.
+Si alguna verificación agéntica falla o es ambigua, se debe proponer una solución.
+
+Requisitos Técnicos:
+Endpoint: POST /api/v1/onboarding/start recibe {"prospect_name": "Juan Perez", "document_id": "1712345678", "product": "cuenta_ahorros"}
+Tool 1 (mockear): verify_identity(document_id) - Retorna {"verified": true/false, "confidence": 0.0-1.0}. Si confianza < 0.8, requiere escalamiento
+Tool 2 (mockear): check_risk_lists(name, document_id) - Retorna {"risk_level": "low/medium/high", "matches": []}. Si high, requiere escalamiento
+Tool 3 (mockear): prepare_documentation(product, client_data) - Retorna documentos requeridos
+
+Entregas Esperadas:
+Diagrama de Arquitectura
+Código fuente funcional:
+Orquestador principal
+Sub-agentes especializados
+Manejo de estado conversacional

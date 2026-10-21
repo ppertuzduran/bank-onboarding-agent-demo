@@ -1,0 +1,17 @@
+.env
+.env.local
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+data/encrypted/
+data/chroma/
+data/state.sqlite
+*.sqlite-journal
+.DS_Store
+.vscode/
+.idea/
+.claude/

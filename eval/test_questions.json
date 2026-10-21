@@ -1,0 +1,98 @@
+[
+  {
+    "question": "¿Cuál es el depósito inicial mínimo para abrir una cuenta de ahorros?",
+    "expected_document": "cuenta_ahorros",
+    "expected_section": "Depósito inicial",
+    "tags": ["cuenta_ahorros", "monto"]
+  },
+  {
+    "question": "¿Cuándo se exige declaración de origen de fondos en una cuenta de ahorros?",
+    "expected_document": "cuenta_ahorros",
+    "expected_section": "Declaración de origen de fondos",
+    "tags": ["cuenta_ahorros", "aml"]
+  },
+  {
+    "question": "¿Qué documentos mínimos se requieren para una cuenta de ahorros?",
+    "expected_document": "cuenta_ahorros",
+    "expected_section": "Documentación mínima",
+    "tags": ["cuenta_ahorros", "documentos"]
+  },
+  {
+    "question": "¿En cuánto tiempo se activa una cuenta de ahorros tras entregar los documentos?",
+    "expected_document": "cuenta_ahorros",
+    "expected_section": "Tiempos de activación",
+    "tags": ["cuenta_ahorros", "sla"]
+  },
+  {
+    "question": "¿Qué ingresos mínimos se piden para abrir una cuenta corriente?",
+    "expected_document": "cuenta_corriente",
+    "expected_section": "Elegibilidad del cliente",
+    "tags": ["cuenta_corriente", "elegibilidad"]
+  },
+  {
+    "question": "¿Cuándo se otorga sobregiro en una cuenta corriente?",
+    "expected_document": "cuenta_corriente",
+    "expected_section": "Sobregiro",
+    "tags": ["cuenta_corriente", "credito"]
+  },
+  {
+    "question": "¿La cuenta corriente tiene cuota de manejo?",
+    "expected_document": "cuenta_corriente",
+    "expected_section": "Comisiones",
+    "tags": ["cuenta_corriente", "comisiones"]
+  },
+  {
+    "question": "¿Cuál es el score crediticio mínimo para tarjeta de crédito?",
+    "expected_document": "tarjeta_credito",
+    "expected_section": "Score mínimo",
+    "tags": ["tarjeta_credito", "score"]
+  },
+  {
+    "question": "¿Cómo se calcula el cupo inicial de una tarjeta de crédito?",
+    "expected_document": "tarjeta_credito",
+    "expected_section": "Cupo inicial",
+    "tags": ["tarjeta_credito", "cupo"]
+  },
+  {
+    "question": "¿Cuándo se exige declaración de renta para tarjeta de crédito?",
+    "expected_document": "tarjeta_credito",
+    "expected_section": "Declaración de renta",
+    "tags": ["tarjeta_credito", "renta"]
+  },
+  {
+    "question": "¿Qué antigüedad laboral mínima piden para un crédito de consumo?",
+    "expected_document": "credito_consumo",
+    "expected_section": "Elegibilidad del cliente",
+    "tags": ["credito_consumo", "elegibilidad"]
+  },
+  {
+    "question": "¿Cuál es el monto máximo del crédito de consumo?",
+    "expected_document": "credito_consumo",
+    "expected_section": "Monto y plazo",
+    "tags": ["credito_consumo", "monto"]
+  },
+  {
+    "question": "¿Cuándo se exige codeudor en el crédito de consumo?",
+    "expected_document": "credito_consumo",
+    "expected_section": "Garantías",
+    "tags": ["credito_consumo", "garantias"]
+  },
+  {
+    "question": "¿Qué confianza mínima se exige en la verificación biométrica de identidad?",
+    "expected_document": "kyc_general",
+    "expected_section": "Verificación de identidad",
+    "tags": ["kyc", "biometria"]
+  },
+  {
+    "question": "¿Qué pasa si el cliente aparece en una lista de riesgo alto?",
+    "expected_document": "kyc_general",
+    "expected_section": "Niveles de riesgo",
+    "tags": ["kyc", "riesgo"]
+  },
+  {
+    "question": "¿Por cuánto tiempo se retiene la documentación del onboarding?",
+    "expected_document": "kyc_general",
+    "expected_section": "Retención documental",
+    "tags": ["kyc", "retencion"]
+  }
+]

@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Onboarding Digital — Orquestador Agéntico</title>
+    <style>
+      :root {
+        --bg: #0f172a;
+        --panel: #1e293b;
+        --panel-2: #0b1220;
+        --fg: #e2e8f0;
+        --muted: #94a3b8;
+        --accent: #38bdf8;
+        --accent-strong: #0ea5e9;
+        --ok: #22c55e;
+        --warn: #f59e0b;
+        --bad: #ef4444;
+        --border: #334155;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+        min-height: 100vh;
+      }
+      .shell {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 32px 20px 80px;
+      }
+      header h1 {
+        margin: 0 0 4px;
+        font-size: 1.6rem;
+      }
+      header p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 360px 1fr;
+        gap: 24px;
+        margin-top: 32px;
+      }
+      @media (max-width: 760px) {
+        .grid { grid-template-columns: 1fr; }
+      }
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 20px;
+      }
+      label {
+        display: block;
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+      input, select {
+        width: 100%;
+        background: var(--panel-2);
+        color: var(--fg);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 10px 12px;
+        font-size: 0.95rem;
+        margin-bottom: 14px;
+      }
+      input:focus, select:focus {
+        outline: 2px solid var(--accent);
+        border-color: var(--accent);
+      }
+      button {
+        width: 100%;
+        background: var(--accent-strong);
+        color: #06121e;
+        border: none;
+        border-radius: 6px;
+        padding: 11px 14px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        cursor: pointer;
+      }
+      button:hover { background: var(--accent); }
+      button:disabled { opacity: 0.6; cursor: not-allowed; }
+      .result-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+      .badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+      }
+      .badge.APPROVED { background: rgba(34,197,94,0.2); color: var(--ok); }
+      .badge.REJECTED { background: rgba(239,68,68,0.2); color: var(--bad); }
+      .badge.ESCALATED { background: rgba(245,158,11,0.2); color: var(--warn); }
+      .message {
+        background: var(--panel-2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 14px;
+        white-space: pre-wrap;
+        font-size: 0.92rem;
+        line-height: 1.5;
+      }
+      .section-title {
+        margin: 18px 0 8px;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        color: var(--muted);
+      }
+      .list {
+        margin: 0;
+        padding-left: 18px;
+      }
+      .list li {
+        margin-bottom: 4px;
+        font-size: 0.9rem;
+      }
+      details {
+        margin-top: 10px;
+        background: var(--panel-2);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+      }
+      details summary {
+        cursor: pointer;
+        padding: 10px 12px;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+      details pre {
+        margin: 0;
+        padding: 0 12px 12px;
+        font-size: 0.75rem;
+        overflow-x: auto;
+        color: var(--fg);
+      }
+      .error {
+        margin-top: 12px;
+        padding: 10px 12px;
+        background: rgba(239,68,68,0.15);
+        border: 1px solid var(--bad);
+        border-radius: 6px;
+        color: #fecaca;
+        font-size: 0.85rem;
+      }
+      .hint {
+        color: var(--muted);
+        font-size: 0.8rem;
+        margin-top: -8px;
+        margin-bottom: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header>
+        <h1>Onboarding Digital — Orquestador Agéntico</h1>
+        <p>PoC local. Valida identidad, riesgo, documentación y responde al cliente.</p>
+      </header>
+
+      <div class="grid">
+        <section class="card">
+          <h2 style="margin:0 0 14px; font-size:1.05rem;">Datos del prospecto</h2>
+          <form id="form">
+            <label for="prospect_name">Nombre</label>
+            <input id="prospect_name" name="prospect_name" required value="Juan Perez" />
+
+            <label for="document_id">Documento (solo dígitos)</label>
+            <input id="document_id" name="document_id" required value="1712345678" pattern="\d{5,20}" />
+
+            <label for="product">Producto</label>
+            <select id="product" name="product">
+              <option value="cuenta_ahorros">Cuenta de ahorros</option>
+              <option value="cuenta_corriente">Cuenta corriente</option>
+              <option value="tarjeta_credito">Tarjeta de crédito</option>
+              <option value="credito_consumo">Crédito de consumo</option>
+            </select>
+
+            <button id="submit" type="submit">Iniciar onboarding</button>
+            <p class="hint" style="margin-top:12px;">
+              Las decisiones son deterministas por hash del document_id — prueba con distintos valores.
+            </p>
+          </form>
+          <div id="error" class="error" style="display:none"></div>
+        </section>
+
+        <section class="card">
+          <div class="result-header">
+            <h2 style="margin:0; font-size:1.05rem;">Resultado</h2>
+            <span id="decision-badge" class="badge" style="display:none"></span>
+          </div>
+          <div id="placeholder" style="color:var(--muted); font-size:0.9rem;">
+            Envía el formulario para ver la respuesta del orquestador.
+          </div>
+          <div id="result" style="display:none">
+            <div class="section-title">Mensaje al cliente</div>
+            <div id="message" class="message"></div>
+
+            <div class="section-title">Documentación requerida</div>
+            <ul id="docs" class="list"></ul>
+
+            <div class="section-title">Chunks de política citados (RAG)</div>
+            <ul id="snippets" class="list"></ul>
+
+            <details>
+              <summary>Trazas de los agentes</summary>
+              <pre id="steps"></pre>
+            </details>
+
+            <details>
+              <summary>Respuesta JSON completa</summary>
+              <pre id="raw"></pre>
+            </details>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script>
+      const form = document.getElementById("form");
+      const submitBtn = document.getElementById("submit");
+      const errorBox = document.getElementById("error");
+      const placeholder = document.getElementById("placeholder");
+      const result = document.getElementById("result");
+      const badge = document.getElementById("decision-badge");
+      const message = document.getElementById("message");
+      const docs = document.getElementById("docs");
+      const snippets = document.getElementById("snippets");
+      const steps = document.getElementById("steps");
+      const raw = document.getElementById("raw");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        errorBox.style.display = "none";
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Procesando…";
+        const payload = {
+          prospect_name: form.prospect_name.value.trim(),
+          document_id: form.document_id.value.trim(),
+          product: form.product.value,
+        };
+        try {
+          const res = await fetch("/api/v1/onboarding/start", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          if (!res.ok) {
+            const txt = await res.text();
+            throw new Error(`${res.status}: ${txt}`);
+          }
+          const data = await res.json();
+          render(data);
+        } catch (err) {
+          errorBox.textContent = String(err.message || err);
+          errorBox.style.display = "block";
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Iniciar onboarding";
+        }
+      });
+
+      function render(data) {
+        placeholder.style.display = "none";
+        result.style.display = "block";
+
+        badge.textContent = data.decision;
+        badge.className = `badge ${data.decision}`;
+        badge.style.display = "inline-block";
+
+        message.textContent = data.message_to_client || "(sin mensaje)";
+
+        docs.innerHTML = "";
+        (data.required_documents || []).forEach((d) => {
+          const li = document.createElement("li");
+          li.textContent = d.mandatory ? d.name : `${d.name} (opcional — ${d.reason || ""})`;
+          docs.appendChild(li);
+        });
+
+        snippets.innerHTML = "";
+        (data.policy_snippets || []).forEach((s) => {
+          const li = document.createElement("li");
+          li.textContent = `[${s.document} :: ${s.section}] (score=${s.score.toFixed(2)})`;
+          snippets.appendChild(li);
+        });
+
+        steps.textContent = JSON.stringify(data.steps, null, 2);
+        raw.textContent = JSON.stringify(data, null, 2);
+      }
+    </script>
+  </body>
+</html>
