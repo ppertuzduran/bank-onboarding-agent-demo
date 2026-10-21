@@ -19,10 +19,7 @@ from app.security import EncryptionService
 def _infer_product_from_filename(name: str) -> str:
     """Deriva el producto del nombre de archivo (p. ej. politica_cuenta_ahorros.md.enc -> cuenta_ahorros)."""
     stem = name.replace(".md.enc", "").replace(".md", "")
-    if stem.startswith("politica_"):
-        candidate = stem[len("politica_") :]
-    else:
-        candidate = stem
+    candidate = stem[len("politica_"):] if stem.startswith("politica_") else stem
     if candidate == "kyc_general":
         return "general"
     return candidate

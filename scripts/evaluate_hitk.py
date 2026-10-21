@@ -9,11 +9,10 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from app.config import BASE_DIR, get_settings
+from app.config import BASE_DIR
 from app.rag.embedder import get_embedding_provider
 from app.rag.retriever import get_retriever
 from app.schemas import EvaluationQuestion, HitAtKReport
-
 
 _K_VALUES: list[int] = [1, 3, 5]
 
@@ -34,7 +33,7 @@ def main() -> int:
     retriever = get_retriever()
     max_k = max(_K_VALUES)
 
-    hits_at: dict[int, int] = {k: 0 for k in _K_VALUES}
+    hits_at: dict[int, int] = dict.fromkeys(_K_VALUES, 0)
     per_question: list[dict] = []
 
     for q in questions:

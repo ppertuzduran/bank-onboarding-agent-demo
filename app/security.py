@@ -53,7 +53,7 @@ class EncryptionService:
         self._fernet: Fernet = Fernet(key.encode())
 
     @classmethod
-    def from_settings(cls, settings: Settings | None = None) -> "EncryptionService":
+    def from_settings(cls, settings: Settings | None = None) -> EncryptionService:
         settings = settings or get_settings()
         return cls(settings.fernet_key)
 

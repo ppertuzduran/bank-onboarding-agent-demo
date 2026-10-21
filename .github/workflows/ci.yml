@@ -39,9 +39,11 @@ jobs:
 
       - name: Run tests (sin RAG real)
         env:
-          FERNET_KEY: zmWkqD9U87KZc0Hw4JkA8xq2VvY9HdLWBwQ6uI8rN1A=
           ENVIRONMENT: local
-        run: pytest -q --ignore=tests/test_rag_integration.py
+        run: |
+          FERNET_KEY=$(python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())")
+          export FERNET_KEY
+          pytest -q --ignore=tests/test_rag_integration.py
 
   security:
     name: Security scan
@@ -50,6 +52,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # gitleaks necesita historia completa
 
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
@@ -68,7 +72,16 @@ jobs:
       - name: bandit (análisis estático de seguridad)
         run: bandit -r app -q -lll
 
-      - name: Secret scan (gitleaks)
-        uses: gitleaks/gitleaks-action@v2
+      - name: Install gitleaks
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_VERSION: "8.21.1"
+        run: |
+          curl -sSL \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
+            -o /tmp/gitleaks.tar.gz
+          tar -xzf /tmp/gitleaks.tar.gz -C /tmp gitleaks
+          sudo mv /tmp/gitleaks /usr/local/bin/gitleaks
+          gitleaks version
+
+      - name: Secret scan (gitleaks)
+        run: gitleaks detect --source . --redact --exit-code 1 --verbose

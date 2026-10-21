@@ -16,7 +16,6 @@ from fastapi import Depends, Header, HTTPException, Request, status
 
 from app.config import Settings, get_settings
 
-
 _API_KEY_HEADER: str = "X-API-Key"
 
 
@@ -71,7 +70,7 @@ class APIKeyAuth:
 def require_api_key(
     request: Request,
     x_api_key: str | None = Header(default=None, alias=_API_KEY_HEADER),
-    settings: Settings = Depends(get_settings),
+    settings: Settings = Depends(get_settings),  # noqa: B008 — patrón idiomático de FastAPI
 ) -> str:
     """FastAPI dependency expuesta como función para registrar en los endpoints."""
     auth = APIKeyAuth(settings)

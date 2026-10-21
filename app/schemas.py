@@ -1,8 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
-
 
 ALLOWED_PRODUCTS: set[str] = {
     "cuenta_ahorros",
@@ -12,26 +11,26 @@ ALLOWED_PRODUCTS: set[str] = {
 }
 
 
-class Product(str, Enum):
+class Product(StrEnum):
     CUENTA_AHORROS = "cuenta_ahorros"
     CUENTA_CORRIENTE = "cuenta_corriente"
     TARJETA_CREDITO = "tarjeta_credito"
     CREDITO_CONSUMO = "credito_consumo"
 
 
-class RiskLevel(str, Enum):
+class RiskLevel(StrEnum):
     LOW = "low"
     MEDIUM = "medium"
     HIGH = "high"
 
 
-class Status(str, Enum):
+class Status(StrEnum):
     IN_PROGRESS = "IN_PROGRESS"
     COMPLETED = "COMPLETED"
     ESCALATED = "ESCALATED"
 
 
-class Decision(str, Enum):
+class Decision(StrEnum):
     APPROVED = "APPROVED"
     REJECTED = "REJECTED"
     ESCALATED = "ESCALATED"

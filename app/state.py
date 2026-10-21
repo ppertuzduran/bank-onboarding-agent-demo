@@ -1,10 +1,9 @@
 from __future__ import annotations
 
-import json
 import sqlite3
 import threading
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -60,7 +59,7 @@ class SessionStore:
 
     @staticmethod
     def _now_iso() -> str:
-        return datetime.now(timezone.utc).isoformat()
+        return datetime.now(UTC).isoformat()
 
     def create(self, payload: OnboardingRequest) -> SessionState:
         session_id = str(uuid.uuid4())

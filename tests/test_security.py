@@ -11,6 +11,7 @@ def test_encrypt_decrypt_roundtrip() -> None:
 
 def test_schemas_reject_invalid_product() -> None:
     import pytest
+
     from app.schemas import OnboardingRequest
 
     with pytest.raises(ValueError):
@@ -19,6 +20,7 @@ def test_schemas_reject_invalid_product() -> None:
 
 def test_schemas_reject_non_digit_document() -> None:
     import pytest
+
     from app.schemas import OnboardingRequest
 
     with pytest.raises(ValueError):
@@ -27,6 +29,7 @@ def test_schemas_reject_non_digit_document() -> None:
 
 def test_schemas_reject_name_with_digits() -> None:
     import pytest
+
     from app.schemas import OnboardingRequest
 
     with pytest.raises(ValueError):

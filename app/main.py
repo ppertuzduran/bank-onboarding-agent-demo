@@ -13,9 +13,9 @@ Expone `/healthz` (liveness) y `/readyz` (readiness con checks reales).
 from __future__ import annotations
 
 import logging
+from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from pathlib import Path
-from typing import AsyncIterator
 
 from fastapi import Depends, FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
@@ -33,7 +33,6 @@ from app.middleware import (
 )
 from app.orchestrator import Orchestrator
 from app.schemas import OnboardingRequest, OnboardingResult
-
 
 logger = logging.getLogger("app.main")
 

@@ -42,7 +42,7 @@ class RiskListChecker:
 
     @staticmethod
     def _seeded_rng(name: str, document_id: str) -> random.Random:
-        key = f"{name.lower().strip()}|{document_id}".encode("utf-8")
+        key = f"{name.lower().strip()}|{document_id}".encode()
         digest = hashlib.sha256(key).digest()
         seed = int.from_bytes(digest[:8], byteorder="big", signed=False)
-        return random.Random(seed)
+        return random.Random(seed)  # noqa: S311 — PRNG determinista para simulación, no criptografía

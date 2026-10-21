@@ -14,12 +14,11 @@ import json
 import logging
 import re
 import sys
-from datetime import datetime, timezone
-from enum import Enum
+from datetime import UTC, datetime
+from enum import StrEnum
 from typing import Any
 
 from app.config import get_settings
-
 
 _PII_PATTERNS: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r"\b\d{5,20}\b"), "[REDACTED_ID]"),
@@ -27,7 +26,7 @@ _PII_PATTERNS: list[tuple[re.Pattern[str], str]] = [
 ]
 
 
-class AuditEvent(str, Enum):
+class AuditEvent(StrEnum):
     AUTH_SUCCESS = "auth.success"
     AUTH_FAILURE = "auth.failure"
     RATE_LIMITED = "rate_limit.exceeded"
@@ -43,7 +42,7 @@ class _JsonFormatter(logging.Formatter):
 
     def format(self, record: logging.LogRecord) -> str:
         payload: dict[str, Any] = {
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
             "level": record.levelname,
             "logger": record.name,
             "message": self._redact(record.getMessage()),

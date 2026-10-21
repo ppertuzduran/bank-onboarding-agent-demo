@@ -1,6 +1,5 @@
 from app.rag.chunker import SectionChunker
 
-
 _SAMPLE = """# Documento de prueba
 
 ## Sección A

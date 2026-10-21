@@ -14,7 +14,6 @@ from fastapi.exceptions import RequestValidationError
 from pydantic import BaseModel, Field
 from starlette.responses import JSONResponse
 
-
 logger = logging.getLogger("app.errors")
 
 

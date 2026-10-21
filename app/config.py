@@ -5,18 +5,17 @@ Lee de variables de entorno y `.env`. Nunca hardcodear secretos.
 
 from __future__ import annotations
 
-from enum import Enum
+from enum import StrEnum
 from functools import lru_cache
 from pathlib import Path
 
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-
 BASE_DIR: Path = Path(__file__).resolve().parent.parent
 
 
-class Environment(str, Enum):
+class Environment(StrEnum):
     LOCAL = "local"
     DEV = "dev"
     STAGING = "staging"

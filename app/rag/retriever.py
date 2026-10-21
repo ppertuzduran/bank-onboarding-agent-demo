@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import contextlib
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
@@ -63,10 +64,8 @@ class ChromaRetriever:
             path=str(self._persist_dir),
             settings=ChromaSettings(anonymized_telemetry=False, allow_reset=True),
         )
-        try:
+        with contextlib.suppress(Exception):
             client.delete_collection(self._collection_name)
-        except Exception:
-            pass
         self._client = client
         self._collection = client.get_or_create_collection(
             name=self._collection_name,
@@ -109,7 +108,7 @@ class ChromaRetriever:
         documents = (result.get("documents") or [[]])[0]
         metadatas = (result.get("metadatas") or [[]])[0]
         distances = (result.get("distances") or [[]])[0]
-        for doc_text, meta, dist in zip(documents, metadatas, distances):
+        for doc_text, meta, dist in zip(documents, metadatas, distances, strict=False):
             score = max(0.0, min(1.0, 1.0 - float(dist)))
             hits.append(
                 RetrievalHit(

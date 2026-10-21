@@ -13,7 +13,6 @@ from pathlib import Path
 
 from pydantic import BaseModel, Field
 
-
 _HEADER_RE: re.Pattern[str] = re.compile(r"^(#{1,6})\s+(.+?)\s*$")
 
 

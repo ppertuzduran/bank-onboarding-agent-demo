@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import ClassVar
+
 from app.schemas import DocumentPreparationResult, Product, RequiredDocument
 
 
@@ -11,7 +13,7 @@ class DocumentationPreparer:
     En producción esto consulta un servicio de catálogo documental.
     """
 
-    _REQUIREMENTS: dict[Product, list[RequiredDocument]] = {
+    _REQUIREMENTS: ClassVar[dict[Product, list[RequiredDocument]]] = {
         Product.CUENTA_AHORROS: [
             RequiredDocument(name="Cédula de ciudadanía (frente y reverso)"),
             RequiredDocument(name="Comprobante de domicilio (no mayor a 3 meses)"),

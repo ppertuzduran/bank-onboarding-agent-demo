@@ -21,7 +21,6 @@ from starlette.requests import Request
 from starlette.responses import JSONResponse, Response
 from starlette.types import ASGIApp
 
-
 REQUEST_ID_HEADER: str = "X-Request-ID"
 
 

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import logging
-from enum import Enum
+from enum import StrEnum
 
 from app.agents import DocumentationAgent, IdentityAgent, ResponseAgent, RiskAgent
 from app.agents.base import BaseAgent
@@ -18,11 +18,10 @@ from app.schemas import (
 )
 from app.state import SessionState, SessionStore, get_session_store
 
-
 logger = logging.getLogger(__name__)
 
 
-class _Phase(str, Enum):
+class _Phase(StrEnum):
     IDENTITY = "IDENTITY"
     RISK = "RISK"
     DOCS = "DOCS"

@@ -36,4 +36,4 @@ class IdentityVerifier:
     def _seeded_rng(document_id: str) -> random.Random:
         digest = hashlib.sha256(document_id.encode("utf-8")).digest()
         seed = int.from_bytes(digest[:8], byteorder="big", signed=False)
-        return random.Random(seed)
+        return random.Random(seed)  # noqa: S311 — PRNG determinista para simulación, no criptografía

@@ -4,7 +4,6 @@ import os
 
 import pytest
 from fastapi import HTTPException
-from fastapi.testclient import TestClient
 
 from app.auth import APIKeyAuth
 from app.config import get_settings

@@ -3,10 +3,10 @@ from app.rag.embedder import EmbeddingProvider, LocalEmbeddingProvider
 from app.rag.retriever import ChromaRetriever, RetrievalHit
 
 __all__ = [
+    "ChromaRetriever",
     "Chunk",
-    "SectionChunker",
     "EmbeddingProvider",
     "LocalEmbeddingProvider",
-    "ChromaRetriever",
     "RetrievalHit",
+    "SectionChunker",
 ]
